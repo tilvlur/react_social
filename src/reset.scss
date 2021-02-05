@@ -1,0 +1,74 @@
+// Обнуляем отступы и границы
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+// Ширина и высота включает поля и границы, но не отступов (margin)
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Убираем обводку элементов
+a:focus, a:active, :focus, :active {
+  outline: none;
+}
+
+// Делаем блочными семантические HTML5-теги
+nav, footer, header, aside {
+  display: block;
+}
+
+// Уравняем поведение шрифтов и элементов для браузеров
+html, body {
+  height: 100%;
+  width: 100%;
+  line-height: 100%;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+//Теги форм должны наследовать семейство шрифта
+input, button, textarea {
+  font-family: inherit;
+}
+
+//Убираем крестик в поле input в IE
+input::-ms-clear {
+  display: none;
+}
+
+// Курсор в виде пальца над кнопками
+button {
+  cursor: pointer;
+}
+
+// Убираем лишние отступы для кнопок в Firefox
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+// Обнуляем стили, ссылок и маркированных списков
+a, a:visited, a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+
+// Выравнивание картинок по верху самого высокого элемента строки
+img {
+  vertical-align: top;
+}
+
+// Обнуляем заголовки
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}

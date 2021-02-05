@@ -1,0 +1,28 @@
+.item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px;
+  width: 365px;
+}
+.item .imageWrapper {
+  width: 70px;
+  height: 70px;
+  padding: 5px;
+}
+.item .imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.item .message {
+  width: 250px;
+  height: 60px;
+  border: white 1px solid;
+  border-radius: 5px;
+  padding: 3px;
+}
+.item span {
+  margin-left: 80px;
+}

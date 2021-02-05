@@ -1,0 +1,36 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+
+  .dialogsItems {
+    padding: 10px;
+  }
+
+  .messages {
+    padding: 10px;
+
+    textarea {
+      width: 200px;
+      padding: 5px;
+      margin: 5px 0;
+      border: gray 1px solid;
+      border-radius: 3px;
+    }
+
+    button {
+      display: block;
+      padding: 5px;
+      box-shadow: 1px 1px 2px;
+      border-radius: 2px;
+      font-size: .8rem;
+
+      &:active {
+        position: relative;
+        top: 1px;
+        left: 1px;
+        box-shadow: 0 0 0;
+      }
+    }
+  }
+
+}

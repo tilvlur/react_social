@@ -1,0 +1,17 @@
+.nav {
+  grid-area: n;
+  background-color: #3ddaef;
+  padding: 10px;
+}
+.nav .item {
+  padding: 5px;
+}
+.nav .item a {
+  color: white;
+}
+.nav .item a:hover {
+  color: #0097EC;
+}
+.nav .item a.activeLink {
+  color: #0097EC;
+}

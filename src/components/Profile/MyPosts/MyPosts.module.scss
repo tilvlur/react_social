@@ -1,0 +1,33 @@
+.postsBlock {
+  padding: 10px;
+
+  h3 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px 0;
+  }
+
+  textarea {
+    width: 200px;
+    padding: 5px;
+    margin: 5px 0;
+    border: gray 1px solid;
+    border-radius: 3px;
+  }
+
+  button {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    box-shadow: 1px 1px 2px;
+    border-radius: 2px;
+    font-size: .8rem;
+
+    &:active {
+      position: relative;
+      top: 1px;
+      left: 1px;
+      box-shadow: 0 0 0;
+    }
+  }
+}
