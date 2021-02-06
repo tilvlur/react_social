@@ -48,11 +48,11 @@ const store = {
 
   dispatch(action) {
     switch (action.type) {
-      case 'UPDATE-NEW-POST-TEXT':
+      case UPDATE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.newText;
         this._callSubscriber(this._state);
         break;
-      case 'ADD-POST':
+      case ADD_POST:
         let post = {
           id: 4,
           message: this._state.profilePage.newPostText,
@@ -62,11 +62,11 @@ const store = {
         this._state.profilePage.newPostText = '';
         this._callSubscriber(this._state);
         break;
-      case 'UPDATE-NEW-MESSAGE-TEXT':
+      case UPDATE_NEW_MESSAGE_TEXT:
         this._state.dialogsPage.newMessageText = action.newText;
         this._callSubscriber(this._state);
         break;
-      case 'ADD-MESSAGE':
+      case ADD_MESSAGE:
         let message = {
           id: 6,
           message: this._state.dialogsPage.newMessageText,
@@ -86,7 +86,9 @@ export const updateNewPostTextActionCreator = (text) => {
     newText: text,
   };
 };
-
 export const addPostActionCreator = () => ({type: ADD_POST});
-export const updateNewMessageTextActionCreator = text => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text});
+export const updateNewMessageTextActionCreator = text => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  newText: text,
+});
 export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
