@@ -12,7 +12,7 @@ const Dialogs = (props) => {
       map(m => <Message message={m.message}/>);
 
   const dialogsTextArea = React.createRef();
-debugger
+
   const onMessageChange = () => {
     let text = dialogsTextArea.current.value;
     props.updateNewMessageText(text);

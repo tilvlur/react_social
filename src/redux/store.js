@@ -1,5 +1,4 @@
 const store = {
-
   _state: {
     profilePage: {
       posts: [
@@ -10,8 +9,8 @@ const store = {
       newPostText: '',
     },
 
-    dialogPage: {
-      store: [
+    dialogsPage: {
+      dialogs: [
         {id: 1, name: 'Dmitry'},
         {id: 2, name: 'Andrey'},
         {id: 3, name: 'Sveta'},
@@ -37,13 +36,14 @@ const store = {
   _callSubscriber() {
     console.log('no observers');
   },
+
   subscriber(observer) {
     this._callSubscriber = observer;
   },
 
   updateNewPostText(newText) {
     this._state.profilePage.newPostText = newText;
-    this._callSubscriber();
+    this._callSubscriber(this);
   },
 
   addPost() {
@@ -55,23 +55,23 @@ const store = {
 
     this._state.profilePage.posts.push(post);
     this._state.profilePage.newPostText = '';
-    this._callSubscriber();
+    this._callSubscriber(this);
   },
 
   updateNewMessageText(newText) {
-    this._state.dialogPage.newMessageText = newText;
-    this._callSubscriber();
+    this._state.dialogsPage.newMessageText = newText;
+    this._callSubscriber(this);
   },
 
   addMessage() {
     let message = {
       id: 6,
-      message: this._state.dialogPage.newMessageText,
+      message: this._state.dialogsPage.newMessageText,
     };
 
-    this._state.dialogPage.messages.push(message);
-    this._callSubscriber();
-    this._state.dialogPage.newMessageText = '';
+    this._state.dialogsPage.messages.push(message);
+    this._callSubscriber(this);
+    this._state.dialogsPage.newMessageText = '';
   },
 };
 

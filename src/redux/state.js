@@ -28,7 +28,6 @@ const state = {
     newMessageText: '',
   },
 
-
 };
 
 let rerenderEntireTree = () => {

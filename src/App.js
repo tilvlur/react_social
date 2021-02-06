@@ -4,30 +4,27 @@ import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
-import {
-  addMessage,
-  addPost,
-  updateNewMessageText,
-  updateNewPostText,
-} from './redux/state';
 import {Route} from 'react-router-dom';
 
 const App = (props) => {
-
+  debugger
   return (
       <div className='app-wrapper'>
         <Header/>
         <Navbar/>
         <div className='app-wrapper-content'>
           <Route path='/dialogs'
-                 render={() => <Dialogs dialogsPage={props.state.dialogsPage}
-                                        updateNewMessageText={updateNewMessageText}
-                                        addMessage={addMessage}/>}/>
+                 render={() => <Dialogs
+                     dialogsPage={props.store.getState().dialogsPage}
+                     updateNewMessageText={props.store.updateNewMessageText.bind(
+                         props.store)}
+                     addMessage={props.store.addMessage.bind(props.store)}/>}/>
           <Route path='/profile'
-                 render={() => <Profile posts={props.state.profilePage.posts}
-                                        newPostText={props.state.profilePage.newPostText}
-                                        updateNewPostText={updateNewPostText}
-                                        addPost={addPost}/>}/>
+                 render={() => <Profile
+                     posts={props.store.getState().profilePage.posts}
+                     newPostText={props.store.getState().profilePage.newPostText}
+                     updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                     addPost={props.store.addPost.bind(props.store)}/>}/>
         </div>
       </div>
   );
