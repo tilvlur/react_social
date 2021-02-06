@@ -1,24 +1,19 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/store';
 
 const MyPosts = (props) => {
   const postsElements = props.profilePage.posts.map(
       p => <Post message={p.message} likesCount={p.likesCount}/>);
 
   const onPostChange = () => {
-    const action = {
-      type: 'UPDATE-NEW-POST-TEXT',
-      newText: postsTextArea.current.value,
-    };
-
+    const action = updateNewPostTextActionCreator(postsTextArea.current.value);
     props.dispatch(action);
   };
 
   const onButtonClick = () => {
-    const action = {
-      type: 'ADD-POST',
-    };
+    const action = addPostActionCreator();
     props.dispatch(action);
   };
 
