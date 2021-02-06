@@ -29,49 +29,48 @@ const store = {
     },
   },
 
-  getState() {
-    return this._state;
-  },
-
   _callSubscriber() {
     console.log('no observers');
+  },
+
+  getState() {
+    return this._state;
   },
 
   subscriber(observer) {
     this._callSubscriber = observer;
   },
 
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this);
-  },
-
-  addPost() {
-    let post = {
-      id: 4,
-      message: this._state.profilePage.newPostText,
-      likesCount: 12,
-    };
-
-    this._state.profilePage.posts.push(post);
-    this._state.profilePage.newPostText = '';
-    this._callSubscriber(this);
-  },
-
-  updateNewMessageText(newText) {
-    this._state.dialogsPage.newMessageText = newText;
-    this._callSubscriber(this);
-  },
-
-  addMessage() {
-    let message = {
-      id: 6,
-      message: this._state.dialogsPage.newMessageText,
-    };
-
-    this._state.dialogsPage.messages.push(message);
-    this._callSubscriber(this);
-    this._state.dialogsPage.newMessageText = '';
+  dispatch(action) {
+    switch (action.type) {
+      case 'UPDATE-NEW-POST-TEXT':
+        this._state.profilePage.newPostText = action.newText;
+        this._callSubscriber(this._state);
+        break;
+      case 'ADD-POST':
+        let post = {
+          id: 4,
+          message: this._state.profilePage.newPostText,
+          likesCount: 12,
+        };
+        this._state.profilePage.posts.push(post);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+        break;
+      case 'UPDATE-NEW-MESSAGE-TEXT':
+        this._state.dialogsPage.newMessageText = action.newText;
+        this._callSubscriber(this._state);
+        break;
+      case 'ADD-MESSAGE':
+        let message = {
+          id: 6,
+          message: this._state.dialogsPage.newMessageText,
+        };
+        this._state.dialogsPage.messages.push(message);
+        this._callSubscriber(this._state);
+        this._state.dialogsPage.newMessageText = '';
+        break;
+    }
   },
 };
 

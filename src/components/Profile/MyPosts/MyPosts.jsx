@@ -3,17 +3,23 @@ import Post from './Post/Post';
 import s from './MyPosts.module.css';
 
 const MyPosts = (props) => {
-
-  const postsElements = props.posts.map(
+  const postsElements = props.profilePage.posts.map(
       p => <Post message={p.message} likesCount={p.likesCount}/>);
 
   const onPostChange = () => {
-    let newText = postsTextArea.current.value;
-    props.updateNewPostText(newText);
+    const action = {
+      type: 'UPDATE-NEW-POST-TEXT',
+      newText: postsTextArea.current.value,
+    };
+
+    props.dispatch(action);
   };
 
   const onButtonClick = () => {
-    props.addPost();
+    const action = {
+      type: 'ADD-POST',
+    };
+    props.dispatch(action);
   };
 
   const postsTextArea = React.createRef();
@@ -24,7 +30,7 @@ const MyPosts = (props) => {
         <div>
           <div>
             <textarea onChange={onPostChange} ref={postsTextArea}
-                      value={props.newPostText}/>
+                      value={props.profilePage.newPostText}/>
           </div>
           <div>
             <button onClick={onButtonClick}>Add post</button>
