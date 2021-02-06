@@ -13,7 +13,8 @@ const Dialogs = (props) => {
   const dialogsTextArea = React.createRef();
 
   const onMessageChange = () => {
-    const action = updateNewMessageTextActionCreator(dialogsTextArea.current.value)
+    let text = dialogsTextArea.current.value;
+    const action = updateNewMessageTextActionCreator(text);
     props.dispatch(action);
   };
 

@@ -8,7 +8,8 @@ const MyPosts = (props) => {
       p => <Post message={p.message} likesCount={p.likesCount}/>);
 
   const onPostChange = () => {
-    const action = updateNewPostTextActionCreator(postsTextArea.current.value);
+    let text = postsTextArea.current.value;
+    const action = updateNewPostTextActionCreator(text);
     props.dispatch(action);
   };
 
