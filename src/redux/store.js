@@ -1,7 +1,6 @@
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
+import profileReducer from './profile-reducer';
+import dialogReducer from './dialogs-reducer';
+import navbarReducer from './navbar-reducer';
 
 const store = {
   _state: {
@@ -32,6 +31,15 @@ const store = {
       ],
       newMessageText: '',
     },
+
+    navbar: [
+      {id: 1, navbarItem: 'Profile', link: '/profile'},
+      {id: 2, navbarItem: 'Messages', link: '/dialogs'},
+      {id: 3, navbarItem: 'News', link: '/news'},
+      {id: 4, navbarItem: 'Music', link: '/music'},
+      {id: 5, navbarItem: 'Settings', link: '/settings'},
+    ],
+
   },
 
   _callSubscriber() {
@@ -47,48 +55,12 @@ const store = {
   },
 
   dispatch(action) {
-    switch (action.type) {
-      case UPDATE_NEW_POST_TEXT:
-        this._state.profilePage.newPostText = action.newText;
-        this._callSubscriber(this._state);
-        break;
-      case ADD_POST:
-        let post = {
-          id: 4,
-          message: this._state.profilePage.newPostText,
-          likesCount: 12,
-        };
-        this._state.profilePage.posts.push(post);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-        break;
-      case UPDATE_NEW_MESSAGE_TEXT:
-        this._state.dialogsPage.newMessageText = action.newText;
-        this._callSubscriber(this._state);
-        break;
-      case ADD_MESSAGE:
-        let message = {
-          id: 6,
-          message: this._state.dialogsPage.newMessageText,
-        };
-        this._state.dialogsPage.messages.push(message);
-        this._callSubscriber(this._state);
-        this._state.dialogsPage.newMessageText = '';
-        break;
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action);
+    this._state.navbar = navbarReducer(this._state.navbar, action);
+
+    this._callSubscriber(this._state);
   },
 };
 
 export default store;
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-  };
-};
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updateNewMessageTextActionCreator = text => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  newText: text,
-});
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});

@@ -1,0 +1,13 @@
+.item {
+  padding: 5px;
+}
+
+.item a {
+  color: white;
+}
+.item a:hover {
+  color: #0097EC;
+}
+.item a.activeLink {
+  color: #0097EC;
+}
