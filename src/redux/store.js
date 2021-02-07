@@ -1,5 +1,5 @@
 import profileReducer from './profile-reducer';
-import dialogReducer from './dialogs-reducer';
+import dialogsReducer from './dialogs-reducer';
 import navbarReducer from './navbar-reducer';
 
 const store = {
@@ -50,13 +50,13 @@ const store = {
     return this._state;
   },
 
-  subscriber(observer) {
+  subscribe(observer) {
     this._callSubscriber = observer;
   },
 
   dispatch(action) {
     this._state.profilePage = profileReducer(this._state.profilePage, action);
-    this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._state.navbar = navbarReducer(this._state.navbar, action);
 
     this._callSubscriber(this._state);
