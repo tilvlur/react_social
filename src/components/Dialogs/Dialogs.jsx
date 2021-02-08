@@ -4,10 +4,10 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
 const Dialogs = (props) => {
-debugger
-  const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
 
-  const messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>);
+  const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
+
+  const messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message} key={m.id}/>);
 
   const onTextareaMessageChange = (e) => {
     let text = e.target.value; //or currentTarget

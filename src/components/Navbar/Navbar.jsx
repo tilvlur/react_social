@@ -3,7 +3,7 @@ import s from './Navbar.module.css';
 import NavbarItem from './NavbarItem/NavbarItem';
 
 const Navbar = (props) => {
-  const navbarElements = props.navbar.map(n => <NavbarItem navbarItem={n}/>);
+  const navbarElements = props.navbar.map(n => <NavbarItem navbarItem={n} key={n.id}/>);
   return (
       <nav className={s.nav}>
         {navbarElements}
