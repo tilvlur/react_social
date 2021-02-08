@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 
-const ProfileInfo = (props) => {
+const ProfileInfo = () => {
   return (
       <div className={s.profileInfoWrapper}>
         <div className={s.profileInfoTop}></div>
