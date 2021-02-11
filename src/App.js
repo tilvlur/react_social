@@ -1,10 +1,12 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
+import Users from './components/Users/Users';
 import {Route} from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
+import Footer from './components/Footer/Footer';
 
 const App = (props) => {
   return (
@@ -16,7 +18,9 @@ const App = (props) => {
                  render={() => <DialogsContainer />} />
           <Route path='/profile'
                  render={() => <Profile />} />
+          <Route path='/users' render={() => <Users />} />
         </div>
+        <Footer />
       </div>
   );
 };

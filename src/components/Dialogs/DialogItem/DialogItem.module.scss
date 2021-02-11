@@ -1,7 +1,17 @@
+@import 'shared/colors';
+
 .dialog {
   padding: 5px 0;
 
-  &.active {
-    color: gold;
+  a {
+    color: white;
+
+    &:hover {
+      color: $secondaryColorL;
+    }
+
+    &.activeLink {
+      color: $secondaryColorL;
+    }
   }
 }

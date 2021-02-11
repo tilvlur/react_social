@@ -1,5 +1,7 @@
+@import 'shared/colors';
+
 .nav {
   grid-area: n;
-  background-color: #3ddaef;
+  background-color: $mainColorL;
   padding: 10px;
 }

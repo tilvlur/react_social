@@ -1,13 +1,17 @@
-.item {
-  padding: 5px;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import 'shared/colors';
+ *   |         ^^^^^^^^^^^^^^^
+ *   '
+ *   NavbarItem.module.scss 1:9  root stylesheet */
 
-.item a {
-  color: white;
-}
-.item a:hover {
-  color: #0097EC;
-}
-.item a.activeLink {
-  color: #0097EC;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import 'shared/colors';\d\a   \2502          ^^^^^^^^^^^^^^^\a   \2575 \a   NavbarItem.module.scss 1:9  root stylesheet";
 }

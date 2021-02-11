@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from './Post/Post';
-import s from './MyPosts.module.css';
+import s from './MyPosts.module.scss';
 
 const MyPosts = (props) => {
   const postsElements = props.profilePage.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id} />);
@@ -18,7 +18,7 @@ const MyPosts = (props) => {
 
   return (
       <div className={s.postsBlock}>
-        <h3>My posts</h3>
+        <h3>my <span>posts</span></h3>
         <div>
           <div>
             <textarea onChange={onTextareaPostChange}

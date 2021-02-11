@@ -1,15 +1,18 @@
+@import 'shared/colors';
+
 .item {
   padding: 5px;
 }
 
 .item a {
   color: white;
+  font-size: 1.2rem;
 
   &:hover {
-    color: #0097EC;
+    color: $secondaryColorL;
   }
 
   &.activeLink {
-    color: #0097EC;
+    color: $secondaryColorL;
   }
 }

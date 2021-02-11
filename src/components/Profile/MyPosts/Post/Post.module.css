@@ -2,27 +2,69 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin: 10px;
-  width: 365px;
+  margin: 10px 0;
+  width: 280px;
 }
 .item .imageWrapper {
-  width: 70px;
-  height: 70px;
-  padding: 5px;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  align-self: flex-start;
 }
 .item .imageWrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border: 1px solid white;
+  border-radius: 10%;
+  box-shadow: 1px 1px 3px black;
 }
 .item .message {
-  width: 250px;
+  position: relative;
+  margin: 5px 0 0 15px;
+  width: 220px;
   height: 60px;
-  border: white 1px solid;
   border-radius: 5px;
-  padding: 3px;
+  padding: 6px;
+  color: #525252;
+  background-color: white;
+  box-shadow: 1px 1px 3px black;
 }
-.item span {
-  margin-left: 80px;
+.item .message:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15px;
+  width: 0;
+  height: 0;
+  border: 10px solid;
+  border-color: white white transparent transparent;
+}
+.item .likeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0 0 60px;
+}
+.item .likeWrapper .likeImgWrapper {
+  width: 23px;
+  height: 23px;
+}
+.item .likeWrapper .likeImgWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.item .likeWrapper .likeImgWrapper img:hover {
+  cursor: pointer;
+}
+.item .likeWrapper .likeImgWrapper img:active {
+  position: relative;
+  top: 1px;
+}
+.item .likeWrapper span {
+  margin: 12px 0 0 4px;
+  font-size: 0.9rem;
+  user-select: none;
 }

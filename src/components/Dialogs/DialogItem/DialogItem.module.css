@@ -1,6 +1,17 @@
-.dialog {
-  padding: 5px 0;
-}
-.dialog.active {
-  color: gold;
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import 'shared/colors';
+ *   |         ^^^^^^^^^^^^^^^
+ *   '
+ *   DialogItem.module.scss 1:9  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import 'shared/colors';\d\a   \2502          ^^^^^^^^^^^^^^^\a   \2575 \a   DialogItem.module.scss 1:9  root stylesheet";
 }

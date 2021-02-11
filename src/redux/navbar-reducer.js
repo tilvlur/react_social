@@ -5,6 +5,7 @@ const initialState = {
     {id: 3, navbarItem: 'News', link: '/news'},
     {id: 4, navbarItem: 'Music', link: '/music'},
     {id: 5, navbarItem: 'Settings', link: '/settings'},
+    {id: 6, navbarItem: 'Users', link: '/users'},
   ],
 };
 

@@ -5,10 +5,16 @@
     font-weight: bold;
     font-size: 1.2rem;
     padding: 10px 0;
+    text-transform: uppercase;
+
+    span {
+      font-weight: normal;
+    }
   }
 
   textarea {
-    width: 200px;
+    width: 220px;
+    height: 60px;
     padding: 5px;
     margin: 5px 0;
     border: gray 1px solid;
@@ -17,7 +23,6 @@
 
   button {
     display: block;
-    margin-top: 5px;
     padding: 5px;
     box-shadow: 1px 1px 2px;
     border-radius: 2px;

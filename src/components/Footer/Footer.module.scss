@@ -1,0 +1,7 @@
+@import 'shared/colors';
+
+.footerWrapper {
+  height: 50px;
+  background-color: $secondaryColor;
+  grid-area: f;
+}

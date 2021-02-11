@@ -1,4 +1,4 @@
-import s from './Message.module.css';
+import s from './Message.module.scss';
 import React from 'react';
 
 const Message = (props) => {
