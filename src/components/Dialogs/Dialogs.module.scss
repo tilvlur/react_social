@@ -1,14 +1,13 @@
 .dialogs {
   display: grid;
   grid-template-columns: 2fr 10fr;
+  gap: 10px;
 
   .dialogsItems {
-    padding: 10px;
     font-size: 1.1rem;
   }
 
   .messages {
-    padding: 10px;
 
     textarea {
       width: 200px;

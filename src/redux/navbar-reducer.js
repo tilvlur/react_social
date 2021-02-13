@@ -1,11 +1,11 @@
 const initialState = {
   navbar: [
     {id: 1, navbarItem: 'Profile', link: '/profile'},
-    {id: 2, navbarItem: 'Messages', link: '/dialogs'},
-    {id: 3, navbarItem: 'News', link: '/news'},
-    {id: 4, navbarItem: 'Music', link: '/music'},
-    {id: 5, navbarItem: 'Settings', link: '/settings'},
-    {id: 6, navbarItem: 'Users', link: '/users'},
+    {id: 2, navbarItem: 'Users', link: '/users'},
+    {id: 3, navbarItem: 'Messages', link: '/dialogs'},
+    {id: 4, navbarItem: 'News', link: '/news'},
+    {id: 5, navbarItem: 'Music', link: '/music'},
+    {id: 6, navbarItem: 'Settings', link: '/settings'},
   ],
 };
 

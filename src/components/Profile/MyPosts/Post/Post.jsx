@@ -5,7 +5,7 @@ const Post = (props) => {
   return (
       <div className={s.item}>
         <div className={s.imageWrapper}>
-          <img src='https://i.pravatar.cc/100' alt='avatar' />
+          <img src='https://robohash.org/tim.png' alt='avatar' />
         </div>
         <div className={s.message}>
           {props.message}
