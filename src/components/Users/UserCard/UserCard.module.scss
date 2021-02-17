@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   background-color: $mainColorL;
   border-radius: 5px;
   border: 1px white solid;
@@ -20,7 +21,8 @@
   }
 
   .avatar {
-    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
     height: 60px;
     border-radius: 50%;
     //border: 2px white solid;
@@ -36,18 +38,21 @@
   }
 
   .userInfo {
-    display: flex;
     height: 100%;
+    display: flex;
     justify-content: space-between;
+    gap: 5px;
     align-items: center;
     width: 75%;
-    padding: 5px;
+    //padding: 5px;
+    line-height: 1.1;
 
     .nameStatus {
-      height: 100%;
+      min-width: 140px;
+      min-height: 45px;
       display: flex;
-      justify-content: space-between;
       flex-direction: column;
+      justify-content: space-between;
 
       h4 {
         font-size: 1.5rem;
@@ -64,8 +69,8 @@
     }
 
     .location {
+      min-width: 90px;
       height: 100%;
-      margin-right: 40px;
       display: flex;
       justify-content: flex-end;
       flex-direction: column;

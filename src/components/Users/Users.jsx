@@ -1,9 +1,10 @@
 import React from 'react';
 import s from './Users.module.scss';
 import UserCard from './UserCard/UserCard';
+import axios from 'axios';
 
 const Users = props => {
-  const users = [
+  /*const users = [
     {
       id: 1,
       fullName: 'Dmity Kazuberdin',
@@ -36,10 +37,12 @@ const Users = props => {
       status: 'Accounting is what I like!!',
       location: {city: 'Tchaikovsky', country: 'USSR'},
     },
-  ];
+  ];*/
 
   if (props.users.length === 0) {
-    props.setUsers(users);
+    axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then((responseValue => props.setUsers(responseValue.data.items)));
+    debugger
   }
 
   return (
