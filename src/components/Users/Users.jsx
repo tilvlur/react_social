@@ -3,7 +3,8 @@ import s from './Users.module.scss';
 import UserCard from './UserCard/UserCard';
 import axios from 'axios';
 
-const Users = props => {
+class Users extends React.Component {
+
   /*const users = [
     {
       id: 1,
@@ -39,23 +40,50 @@ const Users = props => {
     },
   ];*/
 
-  if (props.users.length === 0) {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then((responseValue => props.setUsers(responseValue.data.items)));
-    debugger
+  /*if (props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users')
+          .then((responseValue => props.setUsers(responseValue.data.items)));
+      debugger
+    }*/
+
+  constructor(props) {
+    super(props);
+    this.props.users.length === 0 && axios({
+      method: 'get',
+      url: 'https://social-network.samuraijs.com/api/1.0/users',
+      headers: {
+        'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
+      },
+    })
+        .then((responseValue => this.props.setUsers(responseValue.data.items)));
   }
 
-  return (
-      <div className={s.usersWrapper}>
-        <h3>make <span>friends</span></h3>
-        {props.users.map(u =>
-            <UserCard key={u.id}
-                      user={u}
-                      follow={props.follow}
-                      unfollow={props.unfollow} />,
-        )}
-      </div>
-  );
-};
+  /*getUsers = () => {
+    /!*this.props.users.length === 0 &&*!/
+    axios({
+      method: 'get',
+      url: 'https://social-network.samuraijs.com/api/1.0/users',
+      headers: {
+        'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
+      },
+    })
+        .then((responseValue => this.props.setUsers(responseValue.data.items)));
+  };*/
+
+  render = () => {
+    return (
+        <div className={s.usersWrapper}>
+          <h3>make <span>friends</span></h3>
+          {/*<button onClick={this.getUsers}>Get users</button>*/}
+          {this.props.users.map(u =>
+              <UserCard key={u.id}
+                        user={u}
+                        follow={this.props.follow}
+                        unfollow={this.props.unfollow} />,
+          )}
+        </div>
+    );
+  };
+}
 
 export default Users;
