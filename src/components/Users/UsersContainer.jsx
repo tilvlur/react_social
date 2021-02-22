@@ -1,10 +1,10 @@
 import {
-  followAC,
-  changePagesPartAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC, toggleIsFetchingAC,
+  follow,
+  changePagesPart,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  unfollow, toggleIsFetching,
 } from '../../redux/users-reducer';
 import {connect} from 'react-redux';
 import React from 'react';
@@ -15,7 +15,8 @@ import Preloader from '../common/preloader/Preloader';
 class UsersClassContainer extends React.Component {
   componentDidMount = () => {
     this.props.toggleIsFetching(true);
-    /*this.props.users.length === 0 &&*/ axios({
+    /*this.props.users.length === 0 &&*/
+    axios({
       method: 'get',
       url: `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,
       headers: {
@@ -62,7 +63,7 @@ class UsersClassContainer extends React.Component {
   </>;
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     users: state.usersPage.users,
     totalUsersCount: state.usersPage.totalUsersCount,
@@ -75,10 +76,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+/*const mapDispatchToProps = dispatch => {
   return {
-    setUsers: (users) => dispatch(setUsersAC(users)),
-    setTotalUsersCount: (totalUsersCount) => dispatch(
+    setUsers: users => dispatch(setUsersAC(users)),
+    setTotalUsersCount: totalUsersCount => dispatch(
         setTotalUsersCountAC(totalUsersCount)),
     setCurrentPage: currentPage => dispatch(setCurrentPageAC(currentPage)),
     changePagesPart: changePagesPart => dispatch(
@@ -87,9 +88,16 @@ const mapDispatchToProps = (dispatch) => {
     unfollow: userId => dispatch(unfollowAC(userId)),
     toggleIsFetching: isFetching => dispatch(toggleIsFetchingAC(isFetching)),
   };
-};
+};*/
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(
-    UsersClassContainer);
+const UsersContainer = connect(mapStateToProps, {
+  setUsers,
+  setTotalUsersCount,
+  setCurrentPage,
+  changePagesPart,
+  follow,
+  unfollow,
+  toggleIsFetching,
+})(UsersClassContainer);
 
 export default UsersContainer;
