@@ -1,0 +1,17 @@
+div img.preloader {
+  width: 25px;
+  height: 25px;
+  animation-name: preloader-rotation;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes preloader-rotation {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

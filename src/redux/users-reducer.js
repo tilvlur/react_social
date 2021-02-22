@@ -4,6 +4,7 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const CHANGE_PAGES_PART = 'NEXT_PAGES_PART';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
   users: [],
@@ -13,6 +14,7 @@ const initialState = {
   startDisplayedPagesCount: 1,
   endDisplayedPagesCount: 10,
   iteratorValue: 10,
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -65,6 +67,12 @@ const usersReducer = (state = initialState, action) => {
         }),
       };
 
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      }
+
     default:
       return state;
   }
@@ -87,3 +95,4 @@ export const changePagesPartAC = changePagesPart => ({
 });
 export const followAC = userId => ({type: FOLLOW, userId});
 export const unfollowAC = userId => ({type: UNFOLLOW, userId});
+export const toggleIsFetchingAC = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching})
