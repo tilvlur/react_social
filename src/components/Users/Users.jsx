@@ -78,7 +78,8 @@ const Users = (props) => {
           </button>
         </div>
         {props.users.map(u =>
-            <UserCard key={u.id}
+            <UserCard id={u.id}
+                      key={u.id}
                       user={u}
                       follow={props.follow}
                       unfollow={props.unfollow} />,
@@ -102,7 +103,7 @@ const Users = (props) => {
           </button>
         </div>
       </div>
-  )
-}
+  );
+};
 
 export default Users;

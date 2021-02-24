@@ -12,7 +12,7 @@ import axios from 'axios';
 import Users from './Users';
 import Preloader from '../common/preloader/Preloader';
 
-class UsersClassContainer extends React.Component {
+class UsersContainer extends React.Component {
   componentDidMount = () => {
     this.props.toggleIsFetching(true);
     /*this.props.users.length === 0 &&*/
@@ -90,6 +90,7 @@ const mapStateToProps = state => {
   };
 };*/
 
+/*
 const UsersContainer = connect(mapStateToProps, {
   setUsers,
   setTotalUsersCount,
@@ -100,4 +101,14 @@ const UsersContainer = connect(mapStateToProps, {
   toggleIsFetching,
 })(UsersClassContainer);
 
-export default UsersContainer;
+export default UsersContainer;*/
+
+export default connect(mapStateToProps, {
+  setUsers,
+  setTotalUsersCount,
+  setCurrentPage,
+  changePagesPart,
+  follow,
+  unfollow,
+  toggleIsFetching,
+})(UsersContainer);

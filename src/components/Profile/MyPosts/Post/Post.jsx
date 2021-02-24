@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Post.module.scss';
+import like from '../../../../assets/images/like.svg';
 
 const Post = (props) => {
   return (
@@ -12,7 +13,7 @@ const Post = (props) => {
         </div>
         <div className={s.likeWrapper}>
           <div className={s.likeImgWrapper}>
-            <img src='./img/like.svg' alt='Like' />
+            <img src={like} alt='Like' />
           </div>
           <span>{props.likesCount}</span>
         </div>

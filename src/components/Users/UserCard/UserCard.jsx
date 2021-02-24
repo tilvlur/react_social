@@ -1,15 +1,18 @@
 import React from 'react';
 import s from './UserCard.module.scss';
+import {NavLink} from 'react-router-dom';
 
 const UserCard = (props) => {
   return (
       <div className={s.userCard}>
-        <div className={s.avatar}>
-          <img src={props.user.photos.small != null
-              ? props.user.photos.small
-              : `https://robohash.org/${props.user.name}.png`}
-               alt='Avatar' />}
-        </div>
+        <NavLink to={'/profile/' + props.id}>
+          <div className={s.avatar}>
+            <img src={props.user.photos.small != null
+                ? props.user.photos.small
+                : `https://robohash.org/${props.user.name}.png`}
+                 alt='Avatar' />}
+          </div>
+        </NavLink>
         <div className={s.userInfo}>
           <div className={s.nameStatus}>
             <h4>{props.user.name}</h4>
