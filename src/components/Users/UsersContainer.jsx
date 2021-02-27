@@ -22,6 +22,7 @@ class UsersContainer extends React.Component {
       headers: {
         'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
       },
+      withCredentials: true,
     })
         .then(responseValue => {
               this.props.toggleIsFetching(false);
@@ -39,6 +40,7 @@ class UsersContainer extends React.Component {
       headers: {
         'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
       },
+      withCredentials: true,
     })
         .then(responseValue => {
               this.props.toggleIsFetching(false);

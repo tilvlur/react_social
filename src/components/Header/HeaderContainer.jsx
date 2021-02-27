@@ -40,7 +40,7 @@ class HeaderContainer extends React.Component {
   }
 
   render = () => <>
-    {!this.props.isAuth && <Preloader />}
+    {/*{!this.props.isAuth && <Preloader />}*/}
     <Header {...this.props} />
   </>;
 }
