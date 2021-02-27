@@ -5,7 +5,7 @@ const Footer = (props) => {
   return (
       <div className={s.footerWrapper}>
         <div className={s.copyright}>
-          &copy; Social reactor 2021. All right reserved.
+          &copy; Social Reactor by Timur Khrustalev 2021. All right reserved.
         </div>
       </div>
   );

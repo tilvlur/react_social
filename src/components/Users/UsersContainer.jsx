@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import React from 'react';
 import axios from 'axios';
 import Users from './Users';
-import Preloader from '../common/preloader/Preloader';
+import Preloader from '../common/Preloader/Preloader';
 
 class UsersContainer extends React.Component {
   componentDidMount = () => {

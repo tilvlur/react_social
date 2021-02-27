@@ -3,7 +3,7 @@ import Profile from './Profile';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {setUserProfile} from '../../redux/profile-reducer';
-import Preloader from '../common/preloader/Preloader';
+import Preloader from '../common/Preloader/Preloader';
 import {withRouter} from 'react-router-dom';
 
 class ProfileContainer extends React.Component {
