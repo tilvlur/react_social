@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './UserCard.module.scss';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {followAPI} from '../../../api/api';
 
 const UserCard = (props) => {
   return (
@@ -33,30 +33,16 @@ const UserCard = (props) => {
         <div>
           {props.user.followed
               ? <button onClick={() => {
-                axios({
-                  method: 'DELETE',
-                  url: `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-                  headers: {
-                    'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
-                  },
-                  withCredentials: true,
-                })
+                followAPI.unfollowUser(props.id)
                     .then(response => {
-                      response.data.resultCode === 0 &&
+                      response.resultCode === 0 &&
                       props.unfollow(props.user.id);
                     });
               }}>Unfollow</button>
               : <button onClick={() => {
-                axios({
-                  method: 'POST',
-                  url: `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-                  headers: {
-                    'API-KEY': '96493218-8bfc-4856-861e-4a6864dbda5c',
-                  },
-                  withCredentials: true,
-                })
+                followAPI.followUser(props.id)
                     .then(response => {
-                      response.data.resultCode === 0 &&
+                      response.resultCode === 0 &&
                       props.follow(props.user.id);
                     });
               }}>Follow</button>}

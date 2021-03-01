@@ -40,6 +40,11 @@
   font-style: normal;
 }
 
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 button {
   user-select: none;
 }
