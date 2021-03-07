@@ -32,20 +32,30 @@ const UserCard = (props) => {
         </div>
         <div>
           {props.user.followed
-              ? <button onClick={() => {
-                followAPI.unfollowUser(props.id)
-                    .then(response => {
-                      response.resultCode === 0 &&
-                      props.unfollow(props.user.id);
-                    });
-              }}>Unfollow</button>
-              : <button onClick={() => {
-                followAPI.followUser(props.id)
-                    .then(response => {
-                      response.resultCode === 0 &&
-                      props.follow(props.user.id);
-                    });
-              }}>Follow</button>}
+              ? <button disabled={props.followingInProgress.some(
+                  id => id === props.id)}
+                        onClick={() => {
+                          props.toggleFollowingInProgress(true, props.id);
+                          followAPI.unfollowUser(props.id)
+                              .then(response => {
+                                response.resultCode === 0 &&
+                                props.unfollow(props.user.id);
+                                props.toggleFollowingInProgress(false,
+                                    props.id);
+                              });
+                        }}>Unfollow</button>
+              : <button disabled={props.followingInProgress.some(
+                  id => id === props.id)}
+                        onClick={() => {
+                          props.toggleFollowingInProgress(true, props.id);
+                          followAPI.followUser(props.id)
+                              .then(response => {
+                                response.resultCode === 0 &&
+                                props.follow(props.user.id);
+                                props.toggleFollowingInProgress(false,
+                                    props.id);
+                              });
+                        }}>Follow</button>}
         </div>
       </div>
   );

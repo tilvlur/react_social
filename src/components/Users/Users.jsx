@@ -82,7 +82,10 @@ const Users = (props) => {
                       key={u.id}
                       user={u}
                       follow={props.follow}
-                      unfollow={props.unfollow} />,
+                      unfollow={props.unfollow}
+                      followingInProgress={props.followingInProgress}
+                      toggleFollowingInProgress={props.toggleFollowingInProgress}
+            />,
         )}
         <div className={s.usersPageNavigation}>
           <button onClick={onClickIterator}
