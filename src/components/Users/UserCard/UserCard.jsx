@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './UserCard.module.scss';
 import {NavLink} from 'react-router-dom';
-import {followAPI} from '../../../api/api';
 
 const UserCard = (props) => {
   return (
@@ -35,26 +34,12 @@ const UserCard = (props) => {
               ? <button disabled={props.followingInProgress.some(
                   id => id === props.id)}
                         onClick={() => {
-                          props.toggleFollowingInProgress(true, props.id);
-                          followAPI.unfollowUser(props.id)
-                              .then(response => {
-                                response.resultCode === 0 &&
-                                props.unfollow(props.user.id);
-                                props.toggleFollowingInProgress(false,
-                                    props.id);
-                              });
+                          props.unfollow(props.id);
                         }}>Unfollow</button>
               : <button disabled={props.followingInProgress.some(
                   id => id === props.id)}
                         onClick={() => {
-                          props.toggleFollowingInProgress(true, props.id);
-                          followAPI.followUser(props.id)
-                              .then(response => {
-                                response.resultCode === 0 &&
-                                props.follow(props.user.id);
-                                props.toggleFollowingInProgress(false,
-                                    props.id);
-                              });
+                          props.follow(props.id);
                         }}>Follow</button>}
         </div>
       </div>

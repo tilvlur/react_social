@@ -1,3 +1,5 @@
+import {authAPI, profileAPI} from '../api/api';
+
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 
 const initialState = {
@@ -29,3 +31,20 @@ export const setAuthUserData = (id, login, email, userAvatar) => ({
   type: SET_AUTH_USER_DATA,
   data: {id, login, email, userAvatar},
 });
+
+export const authMe = () => (dispatch) => {
+  authAPI.authMe()
+      .then(response => {
+        if (response.resultCode === 0) {
+          let {id} = {...response.data};
+          let userAuthorizedData = {...response.data};
+          profileAPI.getUserProfile(id)
+              .then(response => {
+                let userPhoto = response.photos.small;
+                userAuthorizedData = {...userAuthorizedData, userPhoto};
+                let {id, login, email, userAvatar} = userAuthorizedData;
+                dispatch(setAuthUserData(id, login, email, userAvatar));
+              });
+        }
+      });
+};
