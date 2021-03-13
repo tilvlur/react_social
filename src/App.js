@@ -7,6 +7,7 @@ import NavbarContainer from './components/Navbar/NavbarContainer';
 import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 
 const App = (props) => {
   return (
@@ -20,6 +21,8 @@ const App = (props) => {
                  render={() => <ProfileContainer />} />
           <Route path='/users'
                  render={() => <UsersContainer />} />
+          <Route path='/login'
+                 render={() => <Login />} />
         </div>
         <Footer />
       </div>
