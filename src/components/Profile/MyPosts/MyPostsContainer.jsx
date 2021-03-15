@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = state => ({
   profilePage: state.profilePage,
+  fullName: state.profilePage.profile.fullName,
 });
 
 const mapDispatchToProps = dispatch => {

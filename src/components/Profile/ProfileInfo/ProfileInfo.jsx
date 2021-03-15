@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.scss';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
   return (
@@ -18,6 +19,7 @@ const ProfileInfo = (props) => {
               props.profile.fullName}
             </h3>
           </div>
+          <ProfileStatus status={'Топим за React!!'} />
         </div>
       </div>
   );
