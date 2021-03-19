@@ -11,15 +11,16 @@ const ProfileInfo = (props) => {
             {/*<img src='https://robohash.org/tim.png' alt='avatar' />*/}
             <img src={!props.profile.photos.large
                 ? `https://robohash.org/${props.profile.fullName}`
-                : props.profile.photos.large } alt='avatar' />
+                : props.profile.photos.large} alt='avatar' />
           </div>
           <div className={s.descriptionContainer}>
             <h3>
               {/*timur <span>khrustalyov</span>*/
-              props.profile.fullName}
+                props.profile.fullName}
             </h3>
           </div>
-          <ProfileStatus status={'Топим за React!!'} />
+          <ProfileStatus status={props.status}
+                         updateStatus={props.updateStatus} />
         </div>
       </div>
   );
