@@ -48,3 +48,8 @@ export const authMe = () => (dispatch) => {
         }
       });
 };
+
+export const login = (values) => (dispatch) => {
+  authAPI.login(values)
+      .then(response => response.data)
+}

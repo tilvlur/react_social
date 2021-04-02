@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
+import LoginContainer from './components/Login/LoginContainer';
 
 const App = (props) => {
   return (
@@ -22,7 +23,7 @@ const App = (props) => {
           <Route path='/users'
                  render={() => <UsersContainer />} />
           <Route path='/login'
-                 render={() => <Login />} />
+                 render={() => <LoginContainer />} />
         </div>
         <Footer />
       </div>
