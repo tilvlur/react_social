@@ -1,0 +1,59 @@
+$inputHeight: 30px;
+$textareaHeight: 60px;
+
+input.formControlsInput {
+  height: $inputHeight;
+  margin-top: 20px;
+  padding: 5px;
+  border: gray 1px solid;
+  border-radius: 3px;
+}
+
+textarea.formControlsTextarea {
+  width: 220px;
+  height: $textareaHeight;
+  margin-top: 20px;
+  padding: 5px;
+  border: gray 1px solid;
+  border-radius: 3px;
+}
+
+button.formControlsButton {
+  display: block;
+  padding: 5px;
+  box-shadow: 1px 1px 2px;
+  border-radius: 3px;
+  font-size: .8rem;
+
+  &:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+    box-shadow: 0 0 0;
+  }
+}
+
+.error {
+  input,
+  textarea {
+    border: #FF3900 2px solid !important;
+    color: #FF3900;
+  }
+}
+
+.error {
+  div {
+    position: relative;
+
+    span {
+      position: absolute;
+      margin-left: 0;
+      margin-top: 2px;
+      font-size: 12px;
+      color: white;
+      background-color: #FF3900;
+      padding: 3px;
+      border-radius: 2px;
+    }
+  }
+}

@@ -1,34 +1,7 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.scss';
-import {Field, Form, Formik} from 'formik';
-
-const NewPostForm = (props) => {
-  const addNewPost = (values, actions) => {
-    props.addNewPost(values.post);
-    // console.log(JSON.stringify(values, null, 2));
-    actions.resetForm();
-  };
-  return (
-      <Formik
-          initialValues={{
-            post: '',
-          }}
-          onSubmit={addNewPost}
-      >
-        {(props) => (
-            <Form>
-              <Field as='textarea'
-                     name='post'
-                     placeholder='Start a new post'>
-              </Field>
-              <button type='submit'>Add post</button>
-              {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
-            </Form>
-        )}
-      </Formik>
-  );
-};
+import NewPostForm from './NewPostForm';
 
 const MyPosts = (props) => {
   const postsElements = props.profilePage.posts.map(
