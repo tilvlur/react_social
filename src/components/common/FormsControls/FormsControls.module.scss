@@ -25,7 +25,8 @@ button.formControlsButton {
   border-radius: 3px;
   font-size: .8rem;
 
-  &:active {
+  &:active,
+  &:disabled {
     position: relative;
     top: 1px;
     left: 1px;
@@ -38,6 +39,9 @@ button.formControlsButton {
   textarea {
     border: #FF3900 2px solid !important;
     color: #FF3900;
+    //Переопределение стилей для Chrome
+    -webkit-box-shadow: inset 0 0 0 50px #fff;
+    -webkit-text-fill-color: #FF3900;
   }
 }
 

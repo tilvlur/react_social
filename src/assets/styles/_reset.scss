@@ -38,6 +38,12 @@ input, button, textarea {
   font-family: inherit;
 }
 
+//Переопределение стилей при использовании автозаполнения
+//Фон, после заполнения, не становится серым
+input:not([type='submit'], [type='checkbox'], [type='radio']) {
+  -webkit-box-shadow: inset 0 0 0 50px #fff;
+}
+
 //Убираем крестик в поле input в IE
 input::-ms-clear {
   display: none;
@@ -58,6 +64,7 @@ button::-moz-focus-inner {
 a, a:visited, a:hover {
   text-decoration: none;
 }
+
 ul li {
   list-style: none;
 }

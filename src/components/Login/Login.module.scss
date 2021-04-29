@@ -27,6 +27,19 @@
       }
     }
 
+    div.serverError {
+      height: 30px;
+      margin-top: 20px;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #FF3900;
+      background-color: #ffe1e6;
+      border-radius: 3px;
+      color: #FF3900;
+    }
+
     div.checkboxWrapper {
       display: flex;
       justify-content: flex-start;

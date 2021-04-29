@@ -5,10 +5,10 @@ import * as Yup from 'yup';
 import s from './Login.module.scss';
 
 const LoginForm = (props) => {
-  const onSubmit = (values) => {
+  const login = (values, actions) => {
     console.log(JSON.stringify(values, null, 2));
     console.log(values);
-    props.login(values);
+    props.login(values, actions);
   };
 
   const LoginSchema = Yup.object().shape({
@@ -29,11 +29,16 @@ const LoginForm = (props) => {
             rememberMe: false,
           }}
           validationSchema={LoginSchema}
-          onSubmit={onSubmit}
+          onSubmit={login}
           // onSubmit={(values => window.alert(JSON.stringify(values)))}
       >
         {(props) => (
             <Form>
+              {props.status && <>
+                <div className={s.serverError}>
+                  {props.status && props.status.error}
+                </div>
+              </>}
               <div>
                 <Field component={Input} type='email' name='email'
                        placeholder='Enter your email here' />
@@ -47,7 +52,8 @@ const LoginForm = (props) => {
                 <label htmlFor='rememberMe'>remember me</label>
               </div>
 
-              <Button type='submit'>Submit</Button>
+              <Button type='submit'
+                      disabled={props.isSubmitting}>Submit</Button>
               {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
             </Form>)
         }

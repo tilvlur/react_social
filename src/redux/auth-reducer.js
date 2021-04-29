@@ -49,12 +49,25 @@ export const authMe = () => (dispatch) => {
       });
 };
 
-export const login = (values) => (dispatch) => {
+export const login = (values, actions) => (dispatch) => {
   authAPI.login(values)
       .then(response => {
         if (response.resultCode === 0) {
           dispatch(authMe());
+        } else {
+          let errorMessage = response.messages.length > 0
+              ? response.messages[0]
+              : 'Some error';
+          /*actions.setErrors({
+            email: 'Incorrect email or password',
+            password: 'Incorrect email or password',
+          });*/
+          /*actions.setFieldError('email', 'Incorrect email');*/
+          actions.setStatus({error: errorMessage});
         }
+      })
+      .then(() => {
+        actions.setSubmitting(false);
       });
 };
 
@@ -62,7 +75,7 @@ export const logout = () => (dispatch) => {
   authAPI.logout()
       .then(response => {
         if (response.resultCode === 0) {
-          dispatch(setAuthUserData(null, null, null, null, false))
+          dispatch(setAuthUserData(null, null, null, null, false));
         }
-      })
-}
+      });
+};

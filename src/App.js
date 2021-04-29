@@ -7,27 +7,34 @@ import NavbarContainer from './components/Navbar/NavbarContainer';
 import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
 import LoginContainer from './components/Login/LoginContainer';
+import {connect} from 'react-redux';
+import {authMe} from './redux/auth-reducer';
 
-const App = (props) => {
-  return (
-      <div className='app-wrapper'>
-        <HeaderContainer />
-        <NavbarContainer />
-        <div className='app-wrapper-content'>
-          <Route path='/dialogs'
-                 render={() => <DialogsContainer />} />
-          <Route path='/profile/:userId?'
-                 render={() => <ProfileContainer />} />
-          <Route path='/users'
-                 render={() => <UsersContainer />} />
-          <Route path='/login'
-                 render={() => <LoginContainer />} />
+class App extends React.Component {
+  componentDidMount() {
+    this.props.authMe()
+  }
+
+  render() {
+    return (
+        <div className='app-wrapper'>
+          <HeaderContainer />
+          <NavbarContainer />
+          <div className='app-wrapper-content'>
+            <Route path='/dialogs'
+                   render={() => <DialogsContainer />} />
+            <Route path='/profile/:userId?'
+                   render={() => <ProfileContainer />} />
+            <Route path='/users'
+                   render={() => <UsersContainer />} />
+            <Route path='/login'
+                   render={() => <LoginContainer />} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-  );
-};
+    );
+  }
+}
 
-export default App;
+export default connect(null, {authMe})(App);
