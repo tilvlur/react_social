@@ -9,14 +9,19 @@ import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginContainer from './components/Login/LoginContainer';
 import {connect} from 'react-redux';
-import {authMe} from './redux/auth-reducer';
+import {initializeApp} from './redux/app-reducer';
+import Preloader from './components/common/Preloader/Preloader';
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.authMe()
+    this.props.initializeApp();
   }
 
   render() {
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
+
     return (
         <div className='app-wrapper'>
           <HeaderContainer />
@@ -37,4 +42,8 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {authMe})(App);
+const mapStateToProps = state => ({
+  initialized: state.app.initialized,
+});
+
+export default connect(mapStateToProps, {initializeApp})(App);

@@ -46,6 +46,7 @@ class LoginStatus extends React.Component {
   handleClickOutside(e) {
     let elementWithRef = this.elementRef.current;
 
+    /*!!e.target there is always, because there is a document.addEventListener*/
     if (elementWithRef && !elementWithRef.contains(e.target)) {
       this.deactivateLogoutMenu();
     }
@@ -67,15 +68,15 @@ class LoginStatus extends React.Component {
               </div>
 
               : <div className={s.loginAuthorized}>
-                  <div className={s.nickName}>
-                    {this.props.login}
-                  </div>
-                  <div className={s.avatar}
+                <div className={s.nickName}>
+                  {this.props.login}
+                </div>
+                <div className={s.avatar}
                      onClick={this.activateLogoutMenu.bind(this)}>
-                    <img src={!this.props.userAvatar
+                  <img src={!this.props.userAvatar
                       ? `https://robohash.org/${this.props.login}.png`
                       : `this.props.userAvatar`} alt='Avatar' />
-                  </div>
+                </div>
                 <div className={s.popUpMenu}
                      hidden={!this.state.showLogoutMenu}
                      ref={this.elementRef}>

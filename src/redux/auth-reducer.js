@@ -33,20 +33,39 @@ export const setAuthUserData = (id, login, email, userAvatar, isAuth) => ({
 });
 
 export const authMe = () => (dispatch) => {
-  authAPI.authMe()
-      .then(response => {
-        if (response.resultCode === 0) {
-          let {id} = {...response.data};
-          let userAuthorizedData = {...response.data};
-          profileAPI.getUserProfile(id)
-              .then(response => {
-                let userPhoto = response.photos.small;
-                userAuthorizedData = {...userAuthorizedData, userPhoto};
-                let {id, login, email, userAvatar} = userAuthorizedData;
-                dispatch(setAuthUserData(id, login, email, userAvatar, true));
-              });
-        }
-      });
+  return new Promise((resolve, reject) => {
+    authAPI.authMe()
+        .then(response => {
+          if (response.resultCode === 0) {
+            let {id} = {...response.data};
+            let userAuthorizedData = {...response.data};
+            profileAPI.getUserProfile(id)
+                .then(response => {
+                  let userPhoto = response.photos.small;
+                  userAuthorizedData = {...userAuthorizedData, userPhoto};
+                  let {id, login, email, userAvatar} = userAuthorizedData;
+                  dispatch(setAuthUserData(id, login, email, userAvatar, true));
+                })
+                .then(() => resolve());
+          }
+        });
+
+  });
+
+  /* authAPI.authMe()
+       .then(response => {
+         if (response.resultCode === 0) {
+           let {id} = {...response.data};
+           let userAuthorizedData = {...response.data};
+           profileAPI.getUserProfile(id)
+               .then(response => {
+                 let userPhoto = response.photos.small;
+                 userAuthorizedData = {...userAuthorizedData, userPhoto};
+                 let {id, login, email, userAvatar} = userAuthorizedData;
+                 dispatch(setAuthUserData(id, login, email, userAvatar, true));
+               });
+         }
+       });*/
 };
 
 export const login = (values, actions) => (dispatch) => {
