@@ -7,12 +7,13 @@ import {
 import {connect} from 'react-redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import {getDialogsPage} from '../../redux/selectors';
 
 let mapStateToProps = state => ({
-  dialogsPage: state.dialogsPage,
+  dialogsPage: getDialogsPage(state),
 });
 
 export default compose(
     connect(mapStateToProps, {addNewMessage}),
-    // withAuthRedirect,
+    withAuthRedirect,
 )(Dialogs);

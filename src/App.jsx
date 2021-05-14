@@ -11,6 +11,7 @@ import LoginContainer from './components/Login/LoginContainer';
 import {connect} from 'react-redux';
 import {initializeApp} from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
+import {isAppInitialized, isUserAppAuth} from './redux/selectors';
 
 class App extends React.Component {
   componentDidMount() {
@@ -27,6 +28,16 @@ class App extends React.Component {
           <HeaderContainer />
           <NavbarContainer />
           <div className='app-wrapper-content'>
+            <Route exact path='/'
+                   render={() => (
+                       <div className='testing'>
+                         <div>To test this site you can log in using the
+                           following
+                           data:
+                         </div>
+                         <div>login: <span>free@samuraijs.com</span></div>
+                         <div>password: <span>free</span></div>
+                       </div>)} />
             <Route path='/dialogs'
                    render={() => <DialogsContainer />} />
             <Route path='/profile/:userId?'
@@ -43,7 +54,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  initialized: state.app.initialized,
+  initialized: isAppInitialized(state),
+  isAuth: isUserAppAuth(state),
 });
 
 export default connect(mapStateToProps, {initializeApp})(App);

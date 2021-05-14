@@ -2,13 +2,21 @@ import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
 import {
-  getUserProfile,
-  getStatus,
+  requestUserProfile,
+  requestStatus,
   updateStatus,
 } from '../../redux/profile-reducer';
 import Preloader from '../common/Preloader/Preloader';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {
+  withAuthRedirectProfile,
+} from '../../hoc/withAuthRedirect';
+import {
+  getAuthorizedUserId,
+  getProfileStatus,
+  getUserProfile, isUserAuth,
+} from '../../redux/selectors';
 
 class ProfileContainer extends React.Component {
 
@@ -18,8 +26,8 @@ class ProfileContainer extends React.Component {
       // userId = 2;
       userId = this.props.authorizedUserId;
     }
-    this.props.getUserProfile(userId);
-    this.props.getStatus(userId);
+    this.props.requestUserProfile(userId);
+    this.props.requestStatus(userId);
   }
 
   render() {
@@ -35,14 +43,15 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.id,
-    isAuth: state.auth.isAuth,
+    profile: getUserProfile(state),
+    status: getProfileStatus(state),
+    authorizedUserId: getAuthorizedUserId(state),
+    isAuth: isUserAuth(state),
   };
 };
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {requestUserProfile, requestStatus, updateStatus}),
+    withAuthRedirectProfile,
 )(ProfileContainer);

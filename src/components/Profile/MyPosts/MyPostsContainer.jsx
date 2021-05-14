@@ -5,10 +5,11 @@ import {
   updateNewPostTextActionCreator,*/
 } from '../../../redux/profile-reducer';
 import {connect} from 'react-redux';
+import {getProfilePage, getUserFullName} from '../../../redux/selectors';
 
 const mapStateToProps = state => ({
-  profilePage: state.profilePage,
-  fullName: state.profilePage.profile.fullName,
+  profilePage: getProfilePage(state),
+  fullName: getUserFullName(state),
 });
 
 const mapDispatchToProps = dispatch => {

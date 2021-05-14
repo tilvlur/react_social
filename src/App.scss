@@ -73,3 +73,19 @@ button {
   background-color: $mainColor;
   color: white;
 }
+
+.testing {
+  width: 500px;
+  margin: 10px auto 20px;
+  padding: 20px;
+  background-color: #3db5f6;
+  font-size: 1.3rem;
+  line-height: 25px;
+  box-shadow: 0 10px 20px -5px rgb(0 0 0 / 40%);
+}
+
+.testing span {
+  font-weight: bold;
+  color: #FFCB40;
+  text-shadow: 1px 1px 2px black;
+}

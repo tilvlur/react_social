@@ -1,7 +1,8 @@
 import {authAPI, profileAPI} from '../api/api';
 import React from 'react';
 
-const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
+const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA';
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 
 const initialState = {
   id: null,
@@ -9,7 +10,7 @@ const initialState = {
   email: null,
   userAvatar: null,
   isAuth: false,
-  isFetching: null,
+  isFetching: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const authReducer = (state = initialState, action) => {
         ...action.payload,
       };
 
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.fetchingStatus,
+      };
     default:
       return state;
   }
@@ -32,40 +38,34 @@ export const setAuthUserData = (id, login, email, userAvatar, isAuth) => ({
   payload: {id, login, email, userAvatar, isAuth},
 });
 
+export const toggleIsFetching = (fetchingStatus) => ({
+  type: TOGGLE_IS_FETCHING,
+  fetchingStatus,
+});
+
 export const authMe = () => (dispatch) => {
+  dispatch(toggleIsFetching(true));
   return new Promise((resolve, reject) => {
     authAPI.authMe()
         .then(response => {
           if (response.resultCode === 0) {
             let {id} = {...response.data};
             let userAuthorizedData = {...response.data};
-            profileAPI.getUserProfile(id)
+            profileAPI.requestUserProfile(id)
                 .then(response => {
                   let userPhoto = response.photos.small;
                   userAuthorizedData = {...userAuthorizedData, userPhoto};
                   let {id, login, email, userAvatar} = userAuthorizedData;
                   dispatch(setAuthUserData(id, login, email, userAvatar, true));
                 })
+                .then(() => dispatch(toggleIsFetching(false)))
                 .then(() => resolve());
+          } else {
+            dispatch(toggleIsFetching(false));
+            reject();
           }
         });
-
   });
-
-  /* authAPI.authMe()
-       .then(response => {
-         if (response.resultCode === 0) {
-           let {id} = {...response.data};
-           let userAuthorizedData = {...response.data};
-           profileAPI.getUserProfile(id)
-               .then(response => {
-                 let userPhoto = response.photos.small;
-                 userAuthorizedData = {...userAuthorizedData, userPhoto};
-                 let {id, login, email, userAvatar} = userAuthorizedData;
-                 dispatch(setAuthUserData(id, login, email, userAvatar, true));
-               });
-         }
-       });*/
 };
 
 export const login = (values, actions) => (dispatch) => {

@@ -42,7 +42,7 @@ const store = {
 
   },
 
-  _callSubscriber() {
+  _callSubscribers() {
     console.log('no observers');
   },
 
@@ -51,7 +51,7 @@ const store = {
   },
 
   subscribe(observer) {
-    this._callSubscriber = observer;
+    this._callSubscribers = observer;
   },
 
   dispatch(action) {
@@ -59,7 +59,7 @@ const store = {
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._state.navbar = navbarReducer(this._state.navbar, action);
 
-    this._callSubscriber(this._state);
+    this._callSubscribers(this._state);
   },
 };
 

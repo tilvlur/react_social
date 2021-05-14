@@ -13,6 +13,14 @@ const Login = (props) => {
       <div className={s.login}>
         <h1>Login</h1>
         <LoginForm login={props.login} />
+        <div className={s.testing}>
+          <div>To test this site you can log in using the
+            following
+            data:
+          </div>
+          <div>login: <span>free@samuraijs.com</span></div>
+          <div>password: <span>free</span></div>
+        </div>
       </div>
   );
 };
