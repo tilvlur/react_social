@@ -3,16 +3,16 @@ import s from './Login.module.scss';
 import LoginForm from './LoginForm';
 import {Redirect} from 'react-router-dom';
 
-const Login = (props) => {
+const Login = ({isAuth, login}) => {
 
-  if (props.isAuth) {
+  if (isAuth) {
     return <Redirect to={'/profile'} />
   }
 
   return (
       <div className={s.login}>
         <h1>Login</h1>
-        <LoginForm login={props.login} />
+        <LoginForm login={login} />
         <div className={s.testing}>
           <div>To test this site you can log in using the
             following

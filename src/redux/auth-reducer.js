@@ -1,8 +1,8 @@
 import {authAPI, profileAPI} from '../api/api';
 import React from 'react';
 
-const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const SET_AUTH_USER_DATA = 'react-social/auth/SET-AUTH-USER-DATA';
+const TOGGLE_IS_FETCHING = 'react-social/auth/TOGGLE-IS-FETCHING';
 
 const initialState = {
   id: null,
@@ -55,7 +55,7 @@ export const authMe = () => (dispatch) => {
                 .then(response => {
                   let userPhoto = response.photos.small;
                   userAuthorizedData = {...userAuthorizedData, userPhoto};
-                  let {id, login, email, userAvatar} = userAuthorizedData;
+                  let {login, email, userAvatar} = userAuthorizedData;
                   dispatch(setAuthUserData(id, login, email, userAvatar, true));
                 })
                 .then(() => dispatch(toggleIsFetching(false)))
@@ -68,33 +68,28 @@ export const authMe = () => (dispatch) => {
   });
 };
 
-export const login = (values, actions) => (dispatch) => {
-  authAPI.login(values)
-      .then(response => {
-        if (response.resultCode === 0) {
-          dispatch(authMe());
-        } else {
-          let errorMessage = response.messages.length > 0
-              ? response.messages[0]
-              : 'Some error';
-          /*actions.setErrors({
-            email: 'Incorrect email or password',
-            password: 'Incorrect email or password',
-          });*/
-          /*actions.setFieldError('email', 'Incorrect email');*/
-          actions.setStatus({error: errorMessage});
-        }
-      })
-      .then(() => {
-        actions.setSubmitting(false);
-      });
+export const login = (values, actions) => async (dispatch) => {
+  const response = await authAPI.login(values);
+  if (response.resultCode === 0) {
+    await dispatch(authMe());
+  } else {
+    let errorMessage = response.messages.length > 0
+        ? response.messages[0]
+        : 'Some error';
+    /*actions.setErrors({
+      email: 'Incorrect email or password',
+      password: 'Incorrect email or password',
+    });*/
+    /*actions.setFieldError('email', 'Incorrect email');*/
+    actions.setStatus({error: errorMessage});
+  }
+  actions.setSubmitting(false);
 };
 
-export const logout = () => (dispatch) => {
-  authAPI.logout()
-      .then(response => {
-        if (response.resultCode === 0) {
-          dispatch(setAuthUserData(null, null, null, null, false));
-        }
-      });
+export const logout = () => async (dispatch) => {
+  const response = await authAPI.logout();
+
+  if (response.resultCode === 0) {
+    dispatch(setAuthUserData(null, null, null, null, false));
+  }
 };

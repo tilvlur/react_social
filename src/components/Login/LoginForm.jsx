@@ -32,11 +32,11 @@ const LoginForm = (props) => {
           onSubmit={login}
           // onSubmit={(values => window.alert(JSON.stringify(values)))}
       >
-        {(props) => (
+        {({status, isSubmitting}) => (
             <Form>
-              {props.status && <>
+              {status && <>
                 <div className={s.serverError}>
-                  {props.status && props.status.error}
+                  {status && status.error}
                 </div>
               </>}
               <div>
@@ -53,7 +53,7 @@ const LoginForm = (props) => {
               </div>
 
               <Button type='submit'
-                      disabled={props.isSubmitting}>Submit</Button>
+                      disabled={isSubmitting}>Submit</Button>
               {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
             </Form>)
         }
