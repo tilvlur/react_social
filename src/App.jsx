@@ -1,17 +1,18 @@
 import './App.scss';
 import React from 'react';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import {Route} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginContainer from './components/Login/LoginContainer';
-import {connect} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {initializeApp} from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import {isAppInitialized, isUserAppAuth} from './redux/selectors';
+import store from './redux/redux-store';
 
 class App extends React.Component {
   componentDidMount() {
@@ -58,4 +59,18 @@ const mapStateToProps = state => ({
   isAuth: isUserAppAuth(state),
 });
 
-export default connect(mapStateToProps, {initializeApp})(App);
+const AppContainer = connect(mapStateToProps, {initializeApp})(App);
+
+const ReactSocialApp = props => {
+  return (
+      <BrowserRouter>
+        <React.StrictMode>
+          <Provider store={store}>
+            <AppContainer />
+          </Provider>
+        </React.StrictMode>
+      </BrowserRouter>);
+};
+
+export default ReactSocialApp;
+
