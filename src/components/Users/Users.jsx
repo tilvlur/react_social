@@ -19,7 +19,7 @@ const Users = (props) => {
                       toggleFollowingInProgress={props.toggleFollowingInProgress}
             />,
         )}
-        <Paginator {...props} />
+        {/*<Paginator {...props} />*/}
       </div>
   );
 };

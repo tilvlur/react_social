@@ -11,7 +11,7 @@ import React from 'react';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import {
-  getEndDisplayedPagesCount, getIteratorUsersValue,
+  getEndDisplayedPagesCount, getIteratorUsersValue, getPagesPortionSize,
   getStartDisplayedPagesCount,
   getTotalUsersCount,
   getUsers, getUsersCurrentPage,
@@ -31,12 +31,13 @@ class UsersContainer extends React.Component {
     {/*{this.props.isFetching ? <Preloader /> : null}*/}
     {this.props.isFetching && <Preloader />}
     <Users onPageChanged={this.onPageChanged}
-           totalUsersCount={this.props.totalUsersCount}
+           totalItemsCount={this.props.totalUsersCount}
            pageSize={this.props.pageSize}
            startDisplayedPagesCount={this.props.startDisplayedPagesCount}
            endDisplayedPagesCount={this.props.endDisplayedPagesCount}
            currentPage={this.props.currentPage}
            iteratorValue={this.props.iteratorValue}
+           pagesPortionSize={this.props.pagesPortionSize}
            changePagesPart={this.props.changePagesPart}
            users={this.props.users}
            follow={this.props.follow}
@@ -56,6 +57,7 @@ const mapStateToProps = state => {
     startDisplayedPagesCount: getStartDisplayedPagesCount(state),
     endDisplayedPagesCount: getEndDisplayedPagesCount(state),
     iteratorValue: getIteratorUsersValue(state),
+    pagesPortionSize: getPagesPortionSize(state),
     isFetching: isUsersFetching(state),
     followingInProgress: isFollowingInProgress(state),
   };

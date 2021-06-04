@@ -15,9 +15,10 @@ const initialState = {
   totalUsersCount: 0,
   pageSize: 7,
   currentPage: 1,
-  startDisplayedPagesCount: 1,
-  endDisplayedPagesCount: 10,
-  iteratorValue: 10,
+  // startDisplayedPagesCount: 1,
+  // endDisplayedPagesCount: 10,
+  // iteratorValue: 10,
+  pagesPortionSize: 10,
   isFetching: false,
   followingInProgress: [],
 };

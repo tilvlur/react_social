@@ -30,5 +30,6 @@ export const getUsersCurrentPage = state => state.usersPage.currentPage;
 export const getStartDisplayedPagesCount = state => state.usersPage.startDisplayedPagesCount;
 export const getEndDisplayedPagesCount = state => state.usersPage.endDisplayedPagesCount;
 export const getIteratorUsersValue = state => state.usersPage.iteratorValue;
+export const getPagesPortionSize = state => state.usersPage.pagesPortionSize;
 export const isUsersFetching = state => state.usersPage.isFetching;
 export const isFollowingInProgress = state => state.usersPage.followingInProgress;

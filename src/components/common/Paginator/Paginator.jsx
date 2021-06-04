@@ -1,79 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './Paginator.module.scss';
 
-const Paginator = (props) => {
-  const pagesCount = Math.ceil(
-      props.totalUsersCount / props.pageSize);
-
+const Paginator = ({
+  totalItemsCount,
+  pageSize,
+  currentPage,
+  onPageChanged,
+  pagesPortionSize = 10,
+}) => {
+  // Количество страниц с 'айтемсами'
+  const pagesCount = Math.ceil(totalItemsCount / pageSize);
+  // Заполняем массив номерами страниц
   const pages = [];
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
 
-  const pagesSlice = pages.slice(props.startDisplayedPagesCount - 1,
-      props.endDisplayedPagesCount);
-
-  const onClickIterator = (e) => {
-    switch (e.currentTarget.innerHTML) {
-      case 'PREV': {
-        const changePagesPart = {
-          currentPage: props.currentPage - props.iteratorValue,
-          startDisplayedPagesCount: props.startDisplayedPagesCount -
-              props.iteratorValue,
-          endDisplayedPagesCount: props.endDisplayedPagesCount -
-              props.iteratorValue,
-        };
-        props.changePagesPart(changePagesPart);
-        props.onPageChanged(changePagesPart.currentPage);
-        break;
-      }
-      case 'NEXT': {
-        if (pagesCount - props.currentPage >= props.iteratorValue) {
-          const changePagesPart = {
-            currentPage: props.currentPage + props.iteratorValue,
-            startDisplayedPagesCount: props.startDisplayedPagesCount +
-                props.iteratorValue,
-            endDisplayedPagesCount: props.endDisplayedPagesCount +
-                props.iteratorValue,
-          };
-          props.changePagesPart(changePagesPart);
-          props.onPageChanged(changePagesPart.currentPage);
-        } else {
-          const changePagesPart = {
-            currentPage: props.currentPage +
-                (pagesCount - props.currentPage),
-            startDisplayedPagesCount: props.startDisplayedPagesCount +
-                (pagesCount - props.currentPage),
-            endDisplayedPagesCount: props.endDisplayedPagesCount +
-                (pagesCount - props.currentPage),
-          };
-          props.changePagesPart(changePagesPart);
-          props.onPageChanged(changePagesPart.currentPage);
-          break;
-        }
-      }
-    }
-  };
+  // Количество порций страниц к отображению
+  let portionCount = Math.ceil(pagesCount / pagesPortionSize);
+  // Хук для организации перемещения по порциям страниц
+  let [portionNumber, setPortionNumber] = useState(1);
+  // Границы отображения порций
+  let leftPortionPageNumber = (portionNumber - 1) * pagesPortionSize + 1;
+  let rightPortionPageNumber = portionNumber * pagesPortionSize;
 
   return (
       <div className={s.paginator}>
-        <button onClick={onClickIterator}
-                disabled={props.startDisplayedPagesCount <= 1 &&
-                'disabled'}>
+        {portionNumber > 1 &&
+        <button onClick={() => setPortionNumber(portionNumber - 1)}>
           PREV
-        </button>
-        {pagesSlice.map(p =>
-            <span onClick={() => props.onPageChanged(p)}
-                  className={p === props.currentPage && s.selected}>
-                  {p}
-                </span>,
-        )}
-        <button onClick={onClickIterator}
-                disabled={props.endDisplayedPagesCount >=
-                pagesCount && 'disabled'}>
+        </button>}
+
+        {pages
+            .filter(
+                p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+            .map(p => {
+              return (
+                  <span className={p === currentPage && s.selected}
+                        onClick={() => onPageChanged(p)}
+                        key={p}>
+                    {p}
+                  </span>);
+            })}
+
+        {portionCount > portionNumber &&
+        <button onClick={() => setPortionNumber(portionNumber + 1)}>
           NEXT
-        </button>
-      </div>);
+        </button>}
+      </div>
+  );
 };
 
 export default Paginator;
