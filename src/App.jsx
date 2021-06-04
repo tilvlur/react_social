@@ -1,8 +1,6 @@
 import './App.scss';
-import React from 'react';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import React, {Suspense} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
@@ -13,6 +11,13 @@ import {initializeApp} from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import {isAppInitialized, isUserAppAuth} from './redux/selectors';
 import store from './redux/redux-store';
+import {withSuspense} from './hoc/withSuspense';
+// import ProfileContainer from './components/Profile/ProfileContainer';
+// import DialogsContainer from './components/Dialogs/DialogsContainer';
+const ProfileContainer = React.lazy(
+    () => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(
+    () => import('./components/Dialogs/DialogsContainer'));
 
 class App extends React.Component {
   componentDidMount() {
@@ -40,9 +45,9 @@ class App extends React.Component {
                          <div>password: <span>free</span></div>
                        </div>)} />
             <Route path='/dialogs'
-                   render={() => <DialogsContainer />} />
+                   render={withSuspense(DialogsContainer)} />
             <Route path='/profile/:userId?'
-                   render={() => <ProfileContainer />} />
+                   render={withSuspense(ProfileContainer)} />
             <Route path='/users'
                    render={() => <UsersContainer />} />
             <Route path='/login'
