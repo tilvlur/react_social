@@ -39,12 +39,22 @@ export const authAPI = {
   logout() {
     return instance.delete(`auth/login`)
         .then(response => response.data);
-  }
+  },
 };
 
 export const profileAPI = {
   requestUserProfile(userId) {
     return instance.get(`profile/${userId}`)
+        .then(response => response.data);
+  },
+  savePhoto(photoFile) {
+    const formData = new FormData();
+    formData.append('image', photoFile);
+    return instance.put('profile/photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
         .then(response => response.data);
   },
   requestStatus(userId) {

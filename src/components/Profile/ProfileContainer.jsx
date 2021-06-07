@@ -5,6 +5,7 @@ import {
   requestUserProfile,
   requestStatus,
   updateStatus,
+  savePhoto,
 } from '../../redux/profile-reducer';
 import Preloader from '../common/Preloader/Preloader';
 import {withRouter} from 'react-router-dom';
@@ -20,7 +21,7 @@ import {
 
 class ProfileContainer extends React.Component {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
       // userId = 2;
@@ -30,11 +31,23 @@ class ProfileContainer extends React.Component {
     this.props.requestStatus(userId);
   }
 
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
   render() {
     if (!this.props.profile) {
       return <Preloader />;
     }
     return <Profile {...this.props}
+                    isOwner={!this.props.match.params.userId}
+                    savePhoto={this.props.savePhoto}
                     profile={this.props.profile}
                     status={this.props.status}
                     updateStatus={this.props.updateStatus} />;
@@ -52,6 +65,7 @@ const mapStateToProps = state => {
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {requestUserProfile, requestStatus, updateStatus}),
+    connect(mapStateToProps,
+        {requestUserProfile, requestStatus, updateStatus, savePhoto}),
     withAuthRedirectProfile,
 )(ProfileContainer);

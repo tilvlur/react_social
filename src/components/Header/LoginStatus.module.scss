@@ -39,6 +39,7 @@ div.login {
     .avatar {
       width: 35px;
       height: 35px;
+      overflow: hidden;
       background-color: $secondaryColorL;
       border: 1px solid white;
       border-radius: 50%;

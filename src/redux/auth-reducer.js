@@ -1,8 +1,9 @@
 import {authAPI, profileAPI} from '../api/api';
 import React from 'react';
 
-const SET_AUTH_USER_DATA = 'react-social/auth/SET-AUTH-USER-DATA';
-const TOGGLE_IS_FETCHING = 'react-social/auth/TOGGLE-IS-FETCHING';
+const SET_AUTH_USER_DATA = 'react-social/auth/SET_AUTH_USER_DATA';
+const REFRESH_LOGIN_PHOTO = 'react-social/auth/REFRESH_LOGIN_PHOTO';
+const TOGGLE_IS_FETCHING = 'react-social/auth/TOGGLE_IS_FETCHING';
 
 const initialState = {
   id: null,
@@ -19,6 +20,12 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+
+    case REFRESH_LOGIN_PHOTO:
+      return {
+        ...state,
+        userAvatar: action.userAvatar,
       };
 
     case TOGGLE_IS_FETCHING:
@@ -38,6 +45,11 @@ export const setAuthUserData = (id, login, email, userAvatar, isAuth) => ({
   payload: {id, login, email, userAvatar, isAuth},
 });
 
+export const refreshLoginPhoto = (userAvatar) => ({
+  type: REFRESH_LOGIN_PHOTO,
+  userAvatar,
+})
+
 export const toggleIsFetching = (fetchingStatus) => ({
   type: TOGGLE_IS_FETCHING,
   fetchingStatus,
@@ -55,8 +67,8 @@ export const authMe = () => (dispatch) => {
                 .then(response => {
                   let userPhoto = response.photos.small;
                   userAuthorizedData = {...userAuthorizedData, userPhoto};
-                  let {login, email, userAvatar} = userAuthorizedData;
-                  dispatch(setAuthUserData(id, login, email, userAvatar, true));
+                  let {login, email} = userAuthorizedData;
+                  dispatch(setAuthUserData(id, login, email, userPhoto, true));
                 })
                 .then(() => dispatch(toggleIsFetching(false)))
                 .then(() => resolve());

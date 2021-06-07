@@ -1,10 +1,12 @@
 import {profileAPI} from '../api/api';
+import {refreshLoginPhoto} from './auth-reducer';
 
 // const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
@@ -61,6 +63,12 @@ const profileReducer = (state = initialState, action) => {
         profile: action.profile,
       };
 
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos},
+      };
+
     case SET_STATUS:
       return {
         ...state,
@@ -84,11 +92,20 @@ export const addPostActionCreator = () => ({type: ADD_POST});*/
 export const addNewPostActionCreator = post => ({type: ADD_NEW_POST, post});
 export const deletePostActionCreator = postId => ({type: DELETE_POST, postId});
 export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
+export const savePhotoSuccess = photos => ({type: SAVE_PHOTO_SUCCESS, photos});
 export const setStatus = status => ({type: SET_STATUS, status});
 
 export const requestUserProfile = userId => async (dispatch) => {
   let responseValue = await profileAPI.requestUserProfile(userId);
   dispatch(setUserProfile(responseValue));
+};
+
+export const savePhoto = file => async dispatch => {
+  let response = await profileAPI.savePhoto(file);
+  if (response.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.data.photos));
+    dispatch(refreshLoginPhoto(response.data.photos.small));
+  }
 };
 
 export const requestStatus = userId => async dispatch => {

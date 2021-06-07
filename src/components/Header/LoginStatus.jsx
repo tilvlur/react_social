@@ -75,7 +75,7 @@ class LoginStatus extends React.Component {
                      onClick={this.activateLogoutMenu.bind(this)}>
                   <img src={!this.props.userAvatar
                       ? `https://robohash.org/${this.props.login}.png`
-                      : `this.props.userAvatar`} alt='Avatar' />
+                      : `${this.props.userAvatar}`} alt='Avatar' />
                 </div>
                 <div className={s.popUpMenu}
                      hidden={!this.state.showLogoutMenu}
@@ -85,7 +85,7 @@ class LoginStatus extends React.Component {
                     <div className={s.avatar}>
                       <img src={!this.props.userAvatar
                           ? `https://robohash.org/${this.props.login}.png`
-                          : `this.props.userAvatar`} alt='Avatar' />
+                          : `${this.props.userAvatar}`} alt='Avatar' />
                     </div>
                     <div className={s.profileInfo}>
                       <div className={s.nickName}>
