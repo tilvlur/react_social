@@ -18,6 +18,7 @@ export const getNavbar = state => state.navbar.navbar;
 //Profile reducer
 export const getProfilePage = state => state.profilePage;
 export const getUserProfile = state => state.profilePage.profile;
+export const isDataFormError = state => state.profilePage.isDataFormError;
 export const getUserFullName = state => state.profilePage.profile.fullName;
 export const getProfileStatus = state => state.profilePage.status;
 export const getAuthorizedUserId = state => state.auth.id;

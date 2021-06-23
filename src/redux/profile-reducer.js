@@ -6,6 +6,7 @@ const ADD_POST = 'ADD-POST';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_DATA_FORM_ERROR = 'SET_DATA_FORM_ERROR';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 const SET_STATUS = 'SET_STATUS';
 
@@ -17,6 +18,7 @@ const initialState = {
   ],
   newPostText: '',
   profile: null,
+  isDataFormError: false,
   status: '',
 };
 
@@ -63,6 +65,12 @@ const profileReducer = (state = initialState, action) => {
         profile: action.profile,
       };
 
+    case SET_DATA_FORM_ERROR:
+      return {
+        ...state,
+        isDataFormError: action.isError,
+      }
+
     case SAVE_PHOTO_SUCCESS:
       return {
         ...state,
@@ -92,6 +100,7 @@ export const addPostActionCreator = () => ({type: ADD_POST});*/
 export const addNewPostActionCreator = post => ({type: ADD_NEW_POST, post});
 export const deletePostActionCreator = postId => ({type: DELETE_POST, postId});
 export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
+export const setDataFormError = isError => ({type: SET_DATA_FORM_ERROR, isError})
 export const savePhotoSuccess = photos => ({type: SAVE_PHOTO_SUCCESS, photos});
 export const setStatus = status => ({type: SET_STATUS, status});
 
@@ -105,6 +114,27 @@ export const savePhoto = file => async dispatch => {
   if (response.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.photos));
     dispatch(refreshLoginPhoto(response.data.photos.small));
+  }
+};
+
+export const saveProfile = (profile, actions) => async (dispatch, getState) => {
+  const userId = getState().auth.id;
+  const response = await profileAPI.saveProfile(profile);
+  if (response.resultCode === 0) {
+    dispatch(requestUserProfile(userId));
+    dispatch(setDataFormError(false))
+  } else {
+    dispatch(setDataFormError(true));
+    debugger
+    const fieldsErrorsArr = response.messages;
+    const fieldsErrorsArrMap = fieldsErrorsArr.map(errString => {
+      return errString.match(/(?<=>)\w+/)[0].toLowerCase() + 'Error';
+    })
+    const fieldsErrorsObj = {};
+    for (let i = 0; i < fieldsErrorsArrMap.length; i++) {
+      fieldsErrorsObj[fieldsErrorsArrMap[i]] = 'Invalid url format';
+    }
+    actions.setStatus(fieldsErrorsObj);
   }
 };
 
