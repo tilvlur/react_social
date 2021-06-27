@@ -43,9 +43,7 @@ button.formControlsButton {
     -webkit-box-shadow: inset 0 0 0 50px #fff;
     -webkit-text-fill-color: #FF3900;
   }
-}
 
-.error {
   div {
     position: relative;
 
@@ -58,6 +56,55 @@ button.formControlsButton {
       background-color: #FF3900;
       padding: 3px;
       border-radius: 2px;
+    }
+  }
+}
+
+.errorNarrowInput {
+  input {
+    border: #FF3900 2px solid !important;
+    color: #FF3900;
+    //Переопределение стилей для Chrome
+    -webkit-box-shadow: inset 0 0 0 50px #fff;
+    -webkit-text-fill-color: #FF3900;
+  }
+
+  div {
+    position: relative;
+
+    span {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: #FF3900;
+      padding: 0 1px 0 1px;
+      border-radius: 2px;
+      bottom: 15px;
+    }
+  }
+}
+
+.errorNarrowTextarea {
+  textarea {
+    border: #FF3900 2px solid !important;
+    color: #FF3900;
+    //Переопределение стилей для Chrome
+    -webkit-box-shadow: inset 0 0 0 50px #fff;
+    -webkit-text-fill-color: #FF3900;
+  }
+
+  div {
+    position: relative;
+
+    span {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: #FF3900;
+      padding: 0 1px 0 1px;
+      border-radius: 2px;
+      bottom: 37px;
+      right: 14px;
     }
   }
 }

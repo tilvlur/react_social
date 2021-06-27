@@ -6,8 +6,10 @@ const Profile = (props) => {
   return (
       <div>
         <ProfileInfo profile={props.profile}
+                     authLogin={props.authLogin}
                      isDataFormError={props.isDataFormError}
                      status={props.status}
+                     isFetching={props.isFetching}
                      updateStatus={props.updateStatus}
                      isOwner={props.isOwner}
                      savePhoto={props.savePhoto}

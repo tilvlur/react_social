@@ -2,13 +2,14 @@ import {profileAPI} from '../api/api';
 import {refreshLoginPhoto} from './auth-reducer';
 
 // const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const ADD_POST = 'ADD-POST';
-const ADD_NEW_POST = 'ADD_NEW_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_DATA_FORM_ERROR = 'SET_DATA_FORM_ERROR';
-const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
-const SET_STATUS = 'SET_STATUS';
+const ADD_POST = 'react_social/profile/ADD-POST';
+const ADD_NEW_POST = 'react_social/profile/ADD_NEW_POST';
+const DELETE_POST = 'react_social/profile/DELETE_POST';
+const SET_USER_PROFILE = 'react_social/profile/SET_USER_PROFILE';
+const SET_DATA_FORM_ERROR = 'react_social/profile/SET_DATA_FORM_ERROR';
+const SAVE_PHOTO_SUCCESS = 'react_social/profile/SAVE_PHOTO_SUCCESS';
+const SET_STATUS = 'react_social/profile/SET_STATUS';
+const TOGGLE_IS_FETCHING = 'react_social/profile/TOGGLE_IS_FETCHING';
 
 const initialState = {
   posts: [
@@ -20,6 +21,7 @@ const initialState = {
   profile: null,
   isDataFormError: false,
   status: '',
+  isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -69,7 +71,7 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         isDataFormError: action.isError,
-      }
+      };
 
     case SAVE_PHOTO_SUCCESS:
       return {
@@ -81,6 +83,12 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         status: action.status,
+      };
+
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.fetchingStatus,
       };
 
     default:
@@ -100,13 +108,22 @@ export const addPostActionCreator = () => ({type: ADD_POST});*/
 export const addNewPostActionCreator = post => ({type: ADD_NEW_POST, post});
 export const deletePostActionCreator = postId => ({type: DELETE_POST, postId});
 export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
-export const setDataFormError = isError => ({type: SET_DATA_FORM_ERROR, isError})
+export const setDataFormError = isError => ({
+  type: SET_DATA_FORM_ERROR,
+  isError,
+});
 export const savePhotoSuccess = photos => ({type: SAVE_PHOTO_SUCCESS, photos});
 export const setStatus = status => ({type: SET_STATUS, status});
+export const toggleIsFetching = fetchingStatus => ({
+  type: TOGGLE_IS_FETCHING,
+  fetchingStatus,
+});
 
 export const requestUserProfile = userId => async (dispatch) => {
+  dispatch(toggleIsFetching(true));
   let responseValue = await profileAPI.requestUserProfile(userId);
   dispatch(setUserProfile(responseValue));
+  dispatch(toggleIsFetching(false));
 };
 
 export const savePhoto = file => async dispatch => {
@@ -118,24 +135,40 @@ export const savePhoto = file => async dispatch => {
 };
 
 export const saveProfile = (profile, actions) => async (dispatch, getState) => {
+  dispatch(toggleIsFetching(true));
   const userId = getState().auth.id;
   const response = await profileAPI.saveProfile(profile);
   if (response.resultCode === 0) {
     dispatch(requestUserProfile(userId));
-    dispatch(setDataFormError(false))
+    dispatch(setDataFormError(false));
   } else {
     dispatch(setDataFormError(true));
-    debugger
     const fieldsErrorsArr = response.messages;
-    const fieldsErrorsArrMap = fieldsErrorsArr.map(errString => {
-      return errString.match(/(?<=>)\w+/)[0].toLowerCase() + 'Error';
-    })
     const fieldsErrorsObj = {};
-    for (let i = 0; i < fieldsErrorsArrMap.length; i++) {
-      fieldsErrorsObj[fieldsErrorsArrMap[i]] = 'Invalid url format';
-    }
+    fieldsErrorsArr.forEach(errString => {
+      const fieldRequiredError = /required\./.test(errString);
+      const urlFormatError = /^(Invalid url format)/.test(errString);
+
+      const getCamelCaseErrorObjectKey = (errStringWord) => {
+        const regExp = new RegExp(`(?<=${errStringWord[0]})\\w+`)
+        return errStringWord[0].toLowerCase() + errStringWord.match(regExp) + 'Error';
+      }
+
+      if (fieldRequiredError) {
+        const errStringWord = errString.match(/(?<=\()\w+/)[0];
+        return fieldsErrorsObj[getCamelCaseErrorObjectKey(errStringWord)] = 'Required';
+      }
+
+      if (urlFormatError) {
+        const errStringWord = errString.match(/(?<=>)\w+/)[0];
+        return fieldsErrorsObj[getCamelCaseErrorObjectKey(errStringWord)] = 'Invalid url format';
+      }
+
+    });
     actions.setStatus(fieldsErrorsObj);
+    dispatch(toggleIsFetching(false));
   }
+  actions.setSubmitting(false);
 };
 
 export const requestStatus = userId => async dispatch => {

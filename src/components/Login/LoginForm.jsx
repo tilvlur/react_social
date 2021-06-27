@@ -6,8 +6,8 @@ import s from './Login.module.scss';
 
 const LoginForm = (props) => {
   const login = (values, actions) => {
-    console.log(JSON.stringify(values, null, 2));
-    console.log(values);
+    // console.log(JSON.stringify(values, null, 2));
+    // console.log(values);
     props.login(values, actions);
   };
 

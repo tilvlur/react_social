@@ -11,15 +11,16 @@
   background-size: 785px;
 }
 
-.descriptionBlock {
+.descriptionTop {
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 5px;
   min-height: 60px;
-  margin-top: -10px;
+  margin: -10px -10px 0 -10px;
   padding: 5px 150px;
   position: relative;
+  background-color: $mainColorL;
 
   .avatarContainer {
     width: 120px;
@@ -33,7 +34,7 @@
       height: 100%;
       object-fit: cover;
       background-color: $secondaryColorL;
-      border: 5px solid $mainColor;
+      border: 5px solid $mainColorL;
       border-radius: 50%;
     }
 
@@ -69,7 +70,7 @@
     }
   }
 
-  .descriptionContainer {
+  .fullNameContainer {
     font-size: 2.5rem;
     font-weight: 300;
     text-transform: uppercase;
@@ -96,6 +97,96 @@
       height: 0;
       border: 7px solid;
       border-color: #FFBA00 #FFBA00 transparent transparent;
+    }
+  }
+}
+
+.descriptionBottomWrapper {
+  overflow: hidden;
+  margin: 0 -10px;
+  padding-bottom: 2px;
+
+  .profileDataWrapper {
+    background-color: $mainColorL;
+    box-shadow: 0 1px 2px -.5px black;
+    padding: 10px 10px 15px 10px;
+
+    .profileData {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 11%;
+
+      .profileDataHeaders {
+        display: flex;
+        justify-content: center;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        border-bottom: 2px solid white;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+
+        span:first-letter {
+          font-weight: bold;
+        }
+      }
+
+      .profileDataBlock {
+        width: 38%;
+        border-radius: 5px;
+        line-height: 1.5rem;
+
+        .blockData {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1.1rem;
+          margin-top: 12px;
+          padding: 0 10px;
+        }
+
+        .blockDataDescription {
+          font-size: 1.1rem;
+          margin-top: 10px;
+          padding: 0 10px;
+
+          .blockUnitDescription {
+            font-size: 1.1rem;
+            padding-left: 10px;
+          }
+        }
+
+        .blockUnitTitle {
+          color: $secondaryColor;
+          text-transform: lowercase;
+          text-shadow: 1px 1px 2px black;
+        }
+
+        .blockUnitValue {
+          width: 60%;
+          align-items: start;
+          font-size: 1.2rem;
+        }
+
+        .blockUnitValue input {
+          height: auto;
+          margin-top: 0;
+          padding: 0 5px;
+        }
+
+        .blockUnitDescription textarea {
+          width: 95%;
+          height: auto;
+          margin-top: 0;
+          padding: 0 5px;
+        }
+      }
+    }
+
+    .buttonWrapper {
+      padding: 10px 0 5px 10px;
+
+      button {
+        width: 55px;
+      }
     }
   }
 }

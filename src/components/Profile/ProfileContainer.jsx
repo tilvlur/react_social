@@ -15,7 +15,7 @@ import {
   withAuthRedirectProfile,
 } from '../../hoc/withAuthRedirect';
 import {
-  getAuthorizedUserId,
+  getAuthorizedUserId, getAuthUserLogin, getProfileIsFetching,
   getProfileStatus,
   getUserProfile, isDataFormError, isUserAuth,
 } from '../../redux/selectors';
@@ -51,7 +51,9 @@ class ProfileContainer extends React.Component {
                     savePhoto={this.props.savePhoto}
                     saveProfile={this.props.saveProfile}
                     profile={this.props.profile}
+                    authLogin={this.props.authLogin}
                     isDataFormError={this.props.isDataFormError}
+                    isFetching={this.props.isFetching}
                     status={this.props.status}
                     updateStatus={this.props.updateStatus} />;
   }
@@ -64,6 +66,8 @@ const mapStateToProps = state => {
     status: getProfileStatus(state),
     authorizedUserId: getAuthorizedUserId(state),
     isAuth: isUserAuth(state),
+    authLogin: getAuthUserLogin(state),
+    isFetching: getProfileIsFetching(state),
   };
 };
 

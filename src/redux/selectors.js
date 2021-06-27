@@ -22,6 +22,7 @@ export const isDataFormError = state => state.profilePage.isDataFormError;
 export const getUserFullName = state => state.profilePage.profile.fullName;
 export const getProfileStatus = state => state.profilePage.status;
 export const getAuthorizedUserId = state => state.auth.id;
+export const getProfileIsFetching = state => state.profilePage.isFetching;
 
 //Users reducer
 export const getUsers = state => state.usersPage.users;
