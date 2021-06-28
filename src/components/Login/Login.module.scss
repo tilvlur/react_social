@@ -40,6 +40,13 @@
       color: #FF3900;
     }
 
+    div.captcha {
+      display: flex;
+      justify-content: center;
+      height: 100px;
+      padding-top: 15px;
+    }
+
     div.checkboxWrapper {
       display: flex;
       justify-content: flex-start;

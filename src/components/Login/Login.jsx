@@ -3,7 +3,7 @@ import s from './Login.module.scss';
 import LoginForm from './LoginForm';
 import {Redirect} from 'react-router-dom';
 
-const Login = ({isAuth, login}) => {
+const Login = ({isAuth, login, captchaUrl}) => {
 
   if (isAuth) {
     return <Redirect to={'/profile'} />
@@ -12,7 +12,7 @@ const Login = ({isAuth, login}) => {
   return (
       <div className={s.login}>
         <h1>Login</h1>
-        <LoginForm login={login} />
+        <LoginForm login={login} captchaUrl={captchaUrl} />
         <div className={s.testing}>
           <div>To test this site you can log in using the
             following

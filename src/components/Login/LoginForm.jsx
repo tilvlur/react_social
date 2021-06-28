@@ -11,15 +11,32 @@ const LoginForm = (props) => {
     props.login(values, actions);
   };
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-        .email('Please, enter email here')
-        .required('Required!')
-        .min(2, '*to short!'),
-    password: Yup.string()
-        .required('Required!')
-        .max(10, 'To long!'),
-  });
+  let LoginSchema = null;
+
+  if (props.captchaUrl) {
+    LoginSchema = Yup.object().shape({
+      email: Yup.string()
+          .email('Please, enter email here')
+          .required('Required!')
+          .min(2, '*to short!'),
+      password: Yup.string()
+          .required('Required!')
+          .max(10, 'To long!'),
+      captcha: Yup.string()
+          .required('Required!')
+          .nullable(),
+    });
+  } else {
+    LoginSchema = Yup.object().shape({
+      email: Yup.string()
+          .email('Please, enter email here')
+          .required('Required!')
+          .min(2, '*to short!'),
+      password: Yup.string()
+          .required('Required!')
+          .max(10, 'To long!'),
+    });
+  }
 
   return (
       <Formik
@@ -27,6 +44,7 @@ const LoginForm = (props) => {
             email: '',
             password: '',
             rememberMe: false,
+            captcha: null,
           }}
           validationSchema={LoginSchema}
           onSubmit={login}
@@ -47,6 +65,16 @@ const LoginForm = (props) => {
                 <Field component={Input} type='password' name='password'
                        placeholder='Password' />
               </div>
+              {props.captchaUrl && <>
+                <div>
+                  <Field component={Input} type='text' name='captcha'
+                         placeholder='Enter symbols from image' />
+                </div>
+                <div className={s.captcha}>
+                  <img src={props.captchaUrl} alt='Captcha' />
+                </div>
+              </>}
+
               <div className={s.checkboxWrapper}>
                 <Field type='checkbox' name='rememberMe' id='rememberMe' />
                 <label htmlFor='rememberMe'>remember me</label>

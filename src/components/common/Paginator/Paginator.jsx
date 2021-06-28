@@ -36,7 +36,7 @@ const Paginator = ({
                 p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map(p => {
               return (
-                  <span className={p === currentPage && s.selected}
+                  <span className={(p === currentPage && s.selected).toString()}
                         onClick={() => onPageChanged(p)}
                         key={p}>
                     {p}

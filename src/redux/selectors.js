@@ -7,6 +7,7 @@ export const getAuthUserLogin = state => state.auth.login;
 export const getAuthUserEmail = state => state.auth.email;
 export const getAuthUserAvatar = state => state.auth.userAvatar;
 export const isUserAuth = state => state.auth.isAuth;
+export const getCaptchaUrl = state => state.auth.captchaUrl;
 export const getAuthIsFetching = state => state.auth.isFetching;
 
 //Dialogs reducer
